@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sharing.dao.UserDao">
+	<resultMap type="UserEntity" id="userResultMap">
+		<id property="userID" column="id"/>
+		<result property="userName" column="name"/>
+		<result property="userJob" column="job"/>
+		<result property="userEmail" column="email"/>
+	</resultMap>
+	<!-- 根据userId查询用户 -->
+	<select id="queryByPrimaryKey" parameterType="int" resultMap="userResultMap">
+		select id,name,job,email from user where id = #{id}
+	</select>
+	
+	<insert id="addUser" parameterType="UserEntity">
+	 	insert into user(name,job,email) values(#{userName},#{userJob},#{userEmail})
+	</insert>
+	
+	<select id="findAll" resultMap="userResultMap">
+		select id,name,job,email from user
+	</select>
+	
+	<update id="updateByPrimary" parameterType="UserEntity">
+		update user set name=#{userName},job=#{userJob} where id=#{userID}
+	</update>
+	
+	<delete id="deleteByPrimaryKey" parameterType="int">
+		delete from user where id = #{id} 
+	</delete>
+</mapper> 
